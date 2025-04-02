@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fingerprint Authentication</title>
+    <style>
+        /* General Page Styles */
+        body {
+            font-family: 'Arial', sans-serif;
+            background: #f4f5f5;
+            color: #353;
+            text-align: center;
+            margin: 40px;
+        }
+
+        h2 {
+            font-size: 28px;
+            color: #2c3e50;
+            margin-bottom: 10px;
+        }
+
+        /* Status Message (Positioned Below Title) */
+        #message {
+            width: 80%;
+            max-width: 600px;
+            margin: 10px auto 20px auto; /* Moved below title */
+            padding: 12px;
+            font-size: 18px;
+            font-weight: bold;
+            border-radius: 8px;
+            display: none;
+            text-align: center;
+        }
+
+        .container {
+            background: white;
+            padding: 25px;
+            border-radius: 12px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+            display: inline-block;
+            width: 400px;
+            margin-top: 10px;
+        }
+
+        /* Button Styling */
+        button {
+            display: block;
+            width: 100%;
+            margin: 10px 0;
+            padding: 12px;
+            font-size: 16px;
+            font-weight: bold;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        #enroll { background: #27ae60; }
+        #authenticate { background: #2980b9; }
+        #scan { background: #f39c12; }
+        #wrong_scan { background: #e74c3c; }
+        #wet_scan { background: #8e44ad; }
+        #fake_scan { background: #d35400; }
+
+        button:hover {
+            opacity: 0.9;
+            transform: translateY(-2px);
+        }
+    </style>
+</head>
+<body>
+    <h2>🔒 Fingerprint Authentication</h2>
+
+    <div id="message"></div> <!-- Moved Below Title -->
+
+    <div class="container">
+        <button id="enroll">✅ Enroll Fingerprint</button>
+        <button id="authenticate">🔄 Authenticate</button>
+        <button id="scan">🖐 Scan Fingerprint</button>
+        <button id="wrong_scan">❌ Wrong Fingerprint</button>
+        <button id="wet_scan">💦 Wet Fingerprint</button>
+        <button id="fake_scan">🎭 Fake Fingerprint</button>
+    </div>
+
+    <script>
+        let failedAttempts = 0;
+
+        function showMessage(text, color) {
+            let messageElement = document.getElementById("message");
+            messageElement.innerText = text;
+            messageElement.style.background = color;
+            messageElement.style.display = "block";
+
+            setTimeout(() => {
+                messageElement.style.display = "none";
+            }, 3000);
+        }
+
+        document.getElementById("enroll").addEventListener("click", function() {
+            showMessage("✅ Fingerprint enrolled successfully", "#d5f5e3");
+        });
+
+        document.getElementById("authenticate").addEventListener("click", function() {
+            showMessage("🔄 Place your finger on the scanner", "#d6eaf8");
+        });
+
+        document.getElementById("scan").addEventListener("click", function() {
+            showMessage("🟢 Authentication successful", "#abebc6");
+            failedAttempts = 0;
+        });
+
+        document.getElementById("wrong_scan").addEventListener("click", function() {
+            failedAttempts++;
+            if (failedAttempts >= 5) {
+                showMessage("⛔ Too many failed attempts. Try later.", "#f5b7b1");
+            } else {
+                showMessage("❌ Authentication failed", "#f1948a");
+            }
+        });
+
+        document.getElementById("wet_scan").addEventListener("click", function() {
+            showMessage("💦 Fingerprint not recognized. Dry your finger!", "#d7bde2");
+        });
+
+        document.getElementById("fake_scan").addEventListener("click", function() {
+            showMessage("🎭 Spoof attempt detected. Access denied.", "#f5cba7");
+        });
+    </script>
+</body>
+</html>
