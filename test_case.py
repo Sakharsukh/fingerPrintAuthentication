@@ -3,6 +3,9 @@ from selenium.webdriver.common.by import By
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 import openpyxl
+# Ensure the 'openpyxl' library is installed before running this script.
+# You can install it using the following command in your terminal:
+# pip install openpyxl
 
 class FingerprintAuthTests:
     
